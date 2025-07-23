@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Removed @import for Google Fonts as next/font handles it */
+
+@layer base {
+  :root {
+    --background: 0 0% 99%; /* #FFFDF9 - Light Theme Background */
+    --foreground: 0 0% 13%; /* #222222 - Light Theme Text */
+    --card: 0 0% 100%; /* #FFFFFF - Light Theme Card Surface */
+    --card-foreground: 0 0% 13%; /* #222222 - Light Theme Card Text */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+    --primary: 340 88% 70%; /* Blush Pink - #FFACC0 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 200 70% 78%; /* Misty Blue - #A6D4F2 */
+    --secondary-foreground: 0 0% 13%;
+    --muted: 0 0% 90%; /* Light Gray for muted elements */
+    --muted-foreground: 0 0% 40%; /* Darker gray for muted text */
+    --accent: 270 60% 86%; /* Lavender - #DCC6F9 */
+    --accent-foreground: 0 0% 13%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%; /* #E5E5E5 - Light Theme Borders */
+    --input: 0 0% 100%;
+    --ring: 340 88% 70%;
+    --radius: 0.75rem; /* rounded-xl */
+  }
+
+  /* Removed .dark block entirely */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+}
