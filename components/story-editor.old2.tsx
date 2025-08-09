@@ -1,55 +1,27 @@
 "use client"
 
-import React, { useState, useRef, ChangeEvent, useEffect } from "react"
+import { useState, useRef, ChangeEvent, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { UploadIcon, SaveIcon, XIcon, EyeIcon, ImageIcon, TextIcon } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
+import { FloatingLabelInput } from "@/components/ui/floating-label-input"
+import { FloatingLabelTextarea } from "@/components/ui/floating-label-textarea"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import StoryPreviewModal from "./story-preview-modal"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { cn } from "@/lib/utils"
-import StoryPreviewModal from "./story-preview-modal"
-
-// FloatingLabelInput component (simplified version)
-const FloatingLabelInput = React.forwardRef<HTMLInputElement, any>(({ id, label, ...props }, ref) => (
-  <div className="relative">
-    <Input id={id} ref={ref} {...props} className="peer h-12 pt-4" />
-    <Label 
-      htmlFor={id} 
-      className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground transition-all peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs"
-    >
-      {label}
-    </Label>
-  </div>
-))
-FloatingLabelInput.displayName = "FloatingLabelInput"
-
-// FloatingLabelTextarea component (simplified version)
-const FloatingLabelTextarea = React.forwardRef<HTMLTextAreaElement, any>(({ id, label, ...props }, ref) => (
-  <div className="relative">
-    <Textarea id={id} ref={ref} {...props} className="min-h-[200px] pt-6" />
-    <Label 
-      htmlFor={id} 
-      className="absolute left-3 top-3 text-sm text-muted-foreground transition-all peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs"
-    >
-      {label}
-    </Label>
-  </div>
-))
-FloatingLabelTextarea.displayName = "FloatingLabelTextarea"
 
 export interface StoryEditorProps {
-  onClose: () => void;
+  onClose: () => void
   story?: {
-    title: string;
-    content: string;
-    status?: string;
-  } | null;
-  onSave?: (storyData: any) => void;
+    title: string
+    content: string
+    status?: string
+  } | null
+  onSave?: (storyData: any) => void
 }
 
 export default function StoryEditor({ onClose, story: initialStory, onSave }: StoryEditorProps) {
@@ -61,10 +33,10 @@ export default function StoryEditor({ onClose, story: initialStory, onSave }: St
   const [coverImage, setCoverImage] = useState<File | null>(null)
   const [contentType, setContentType] = useState<"text" | "image">("text")
   const [storyContent, setStoryContent] = useState<{
-    id: string;
-    type: 'text' | 'image';
-    content: string;
-    order: number;
+    id: string
+    type: 'text' | 'image'
+    content: string
+    order: number
   }[]>([])
   const [currentText, setCurrentText] = useState("")
   const [isSaving, setIsSaving] = useState(false)
@@ -219,14 +191,14 @@ export default function StoryEditor({ onClose, story: initialStory, onSave }: St
               id="title" 
               label="Title" 
               value={title} 
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)} 
+              onChange={(e) => setTitle(e.target.value)} 
             />
             <FloatingLabelInput
               id="episode-number"
               label="Episode No. (Optional)"
               type="number"
               value={episodeNumber}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEpisodeNumber(e.target.value)}
+              onChange={(e) => setEpisodeNumber(e.target.value)}
             />
           </div>
 
@@ -255,7 +227,7 @@ export default function StoryEditor({ onClose, story: initialStory, onSave }: St
                 id="tags"
                 label="Tags (comma-separated)"
                 value={tags}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTags(e.target.value)}
+                onChange={(e) => setTags(e.target.value)}
                 placeholder="e.g., adventure, mystery, romance"
               />
             </div>
@@ -274,7 +246,8 @@ export default function StoryEditor({ onClose, story: initialStory, onSave }: St
                     id="content"
                     label="Your Story"
                     value={content}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
+                    onChange={(e) => setContent(e.target.value)}
+                    className="min-h-[200px]"
                   />
                 </div>
               </TabsContent>
